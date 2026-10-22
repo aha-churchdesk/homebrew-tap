@@ -1,0 +1,40 @@
+name: Bump formulae
+
+# Every hour, move each formula to its project's latest GitHub release.
+# Projects need no access to this repo: the tap reads their releases.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bump
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Bump
+        id: bump
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUMPED: ${{ runner.temp }}/bumped
+        run: ./scripts/bump.sh
+
+      # Commit what was bumped even when another formula failed.
+      - name: Commit
+        if: ${{ !cancelled() }}
+        env:
+          BUMPED: ${{ runner.temp }}/bumped
+        run: |
+          [ -s "$BUMPED" ] || exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula
+          git commit -m "$(paste -sd, "$BUMPED" | sed 's/,/, /g')"
+          git push

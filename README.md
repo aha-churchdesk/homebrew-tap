@@ -8,4 +8,4 @@ brew services start headroom
 headroom hook install
 ```
 
-Apple Silicon only. `Formula/headroom.rb` is written by Headroom's release workflow on each tagged release; don't edit it by hand.
+Apple Silicon only. Every hour, `.github/workflows/bump.yml` moves each formula's `url` and `sha256` to its project's latest GitHub release; run it from the Actions tab to pick up a release at once. Everything else in a formula is edited here by hand.
