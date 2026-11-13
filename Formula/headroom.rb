@@ -2,8 +2,8 @@
 class Headroom < Formula
   desc "Queue heavy dev commands so parallel coding agents don't exhaust memory"
   homepage "https://github.com/aha-churchdesk/headroom"
-  url "https://github.com/aha-churchdesk/headroom/releases/download/v0.4.14/headroom-0.4.14-aarch64-apple-darwin.tar.gz"
-  sha256 "b3a725a8e1a46b1d6663d556aeb3da2f5c1679f194110f10c41cfbc32c94c25b"
+  url "https://github.com/aha-churchdesk/headroom/releases/download/v0.4.15/headroom-0.4.15-aarch64-apple-darwin.tar.gz"
+  sha256 "15a0ec7f7fdb6d122e4ac48e801b4a294663ee9de6fe5e5d02db0ec2b2ca9316"
 
   depends_on arch: :arm64
   depends_on :macos
